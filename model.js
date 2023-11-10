@@ -35,7 +35,7 @@ function Ellipse(startX, startY, endX, endY, thickness, color) {
 	this.endY = endY
 }
 
-function Text(startX, startY, text) {
-	Shape.call(this, startX, startY)
+function Text(startX, startY, text, thickness, color) {
+	Shape.call(this, startX, startY, thickness, color)
 	this.text = text
 }

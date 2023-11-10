@@ -25,7 +25,7 @@ function Pencil(ctx, drawing, canvas) {
 
 	this.onInteractionUpdate = function(dnd){
 		if (this.currEditingMode === editingMode.text) {
-			this.currentShape = new Text(dnd.initX, dnd.initY, dnd.text);
+			this.currentShape = new Text(dnd.initX, dnd.initY, dnd.text, this.currLineWidth, this.currColour);
 		} else if (this.currEditingMode === editingMode.rect) {
 			this.currentShape = new Rectangle(dnd.initX, dnd.initY, this.currLineWidth, this.currColour, dnd.finalY - dnd.initY, dnd.finalX - dnd.initX);
 		} else if (this.currEditingMode === editingMode.line) {
@@ -43,7 +43,8 @@ function Pencil(ctx, drawing, canvas) {
 		var uuid = generateUUID();
 		drawing.shapeArray.set(uuid, this.currentShape);
 		drawing.paint(ctx, canvas);
-		updateShapeList(uuid, this.currentShape)
+		console.log(dnd.initX);
+		updateShapeList(uuid, this.currentShape, dnd.initX, dnd.initY)
 		document.getElementById("remove" + uuid).onclick = (event) => remove(drawing, event.currentTarget.id.substring(6), ctx, canvas)
 	}.bind(this);
 };

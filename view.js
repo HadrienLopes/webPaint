@@ -22,8 +22,8 @@ Rectangle.prototype.paint = function(ctx) {
 };
 
 Text.prototype.paint = function(ctx) {
-	ctx.font = toString(this.thickness)+'pt Calibri';
-	ctx.fillStyle = 'orange';
+	ctx.font = this.thickness.toString()+'pt Calibri';
+	ctx.fillStyle = this.color;
 	ctx.fillText(this.text, this.startX, this.startY);
 	ctx.stroke();
 };
@@ -43,23 +43,25 @@ Drawing.prototype.paint = function(ctx, canvas) {
 	this.shapeArray.forEach(element => element.paint(ctx))
 };
 
-function updateShapeList(index, shape) {
-	document.getElementById('shapeList').insertAdjacentHTML('beforeend', toDom(shape, index))
+function updateShapeList(index, shape, startX, startY) {
+	document.getElementById('shapeList').insertAdjacentHTML('beforeend', toDom(shape, index, startX, startY))
 }
 
-function toDom(shape, index) {
+function toDom(shape, index, startX, startY) {
+	startX = startX.toFixed(0);
+	startY = startY.toFixed(0);
 	if (shape && typeof shape === 'object') {
 		let innerHTML = `<li id="liRemove${index}">`
 		if (shape.constructor === Rectangle)
-			innerHTML += `<span style="color:' + shape.color + '"></span> Rectangle`
+			innerHTML += `<span style="color:' + shape.color + '"></span> Rectangle [${startX};${startY}]`
 		else if (shape.constructor === Line)
-			innerHTML += `<span style="color:' + shape.color + '"></span> Line`
+			innerHTML += `<span style="color:' + shape.color + '"></span> Line [${startX};${startY}]`
 		else if (shape.constructor === Circle)
-			innerHTML += `<span style="color:' + shape.color + '"></span> Circle`
+			innerHTML += `<span style="color:' + shape.color + '"></span> Circle [${startX};${startY}]`
 		else if (shape.constructor === Ellipse)
-			innerHTML += `<span style="color:' + shape.color + '"></span> Ellipse`
+			innerHTML += `<span style="color:' + shape.color + '"></span> Ellipse [${startX};${startY}]`
 		else if (shape.constructor === Text)
-			innerHTML += `<span style="color:' + shape.color + '"></span> Text`
+			innerHTML += `<span style="color:' + shape.color + '"></span> Text [${startX};${startY}]`
 		innerHTML += `
 		<button type="button" class="btn btn-default remove" id="remove${index}">
 			<span class="glyphicon glyphicon-remove-sign"></span>
