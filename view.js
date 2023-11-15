@@ -2,8 +2,11 @@
 Ellipse.prototype.paint = function (ctx) {
 	ctx.strokeStyle = this.color
 	ctx.lineWidth = this.thickness
+
+	ctx.strokeStyle = this.color
+	ctx.lineWidth = this.thickness
 	ctx.beginPath();
-	ctx.ellipse(100, 100, 50, 75, Math.PI / 4, 0, 2 * Math.PI);
+	ctx.ellipse(this.startX, this.startY, this.endX, this.endY, 0, 0, 2 * Math.PI);
 	ctx.stroke();
 }
 
